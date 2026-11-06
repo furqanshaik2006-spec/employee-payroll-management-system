@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Payslip | PayRoll Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background-color: #f1f5f9; display: block; padding: 30px 15px;">
+
+  <div class="actions-bar" style="max-width: 800px; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: center;">
+    <a href="payroll.html" class="btn btn-secondary">← Back to Payroll List</a>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn btn-primary btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <div class="payslip-wrapper" id="payslip-container">
+    <div class="payslip-header">
+      <h1>PAYROLL PRO ENTERPRISE</h1>
+      <p>Employee Payroll Management System &amp; Human Capital Solutions</p>
+      <h3 style="margin-top: 15px; font-size: 15px; letter-spacing: 1px; color: #1e293b;" id="ps-title">
+        SALARY PAYSLIP
+      </h3>
+    </div>
+
+    <!-- Employee Information Grid -->
+    <div class="payslip-meta-grid">
+      <div>
+        <div class="meta-item">
+          <span class="label">Employee ID:</span>
+          <span id="ps-emp-code">--</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Employee Name:</span>
+          <strong id="ps-emp-name">--</strong>
+        </div>
+        <div class="meta-item">
+          <span class="label">Department:</span>
+          <span id="ps-dept">--</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Designation:</span>
+          <span id="ps-designation">--</span>
+        </div>
+      </div>
+      <div>
+        <div class="meta-item">
+          <span class="label">Payroll Period:</span>
+          <strong id="ps-period">--</strong>
+        </div>
+        <div class="meta-item">
+          <span class="label">Payment Status:</span>
+          <span id="ps-status" class="badge">--</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Payment Mode:</span>
+          <span id="ps-method">--</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Disbursement Date:</span>
+          <span id="ps-pay-date">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings & Deductions Tables -->
+    <div class="payslip-tables-grid">
+      <!-- Earnings -->
+      <div style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+        <div style="background: #ecfdf5; padding: 10px 16px; font-weight: 700; color: #15803d; border-bottom: 1px solid #bbf7d0;">
+          EARNINGS &amp; ALLOWANCES
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>Basic Salary</td>
+              <td style="text-align: right;"><strong id="ps-basic">₹0.00</strong></td>
+            </tr>
+            <tr>
+              <td>House Rent Allowance (HRA)</td>
+              <td style="text-align: right;" id="ps-hra">₹0.00</td>
+            </tr>
+            <tr>
+              <td>Medical Allowance</td>
+              <td style="text-align: right;" id="ps-med">₹0.00</td>
+            </tr>
+            <tr>
+              <td>Special Allowance</td>
+              <td style="text-align: right;" id="ps-spec">₹0.00</td>
+            </tr>
+            <tr style="background: #f8fafc; border-top: 2px solid var(--border-color);">
+              <td><strong>Total Earnings (Gross)</strong></td>
+              <td style="text-align: right;"><strong style="color: #15803d;" id="ps-total-earnings">₹0.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Deductions -->
+      <div style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+        <div style="background: #fef2f2; padding: 10px 16px; font-weight: 700; color: #b91c1c; border-bottom: 1px solid #fecaca;">
+          DEDUCTIONS
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>Provident Fund (PF)</td>
+              <td style="text-align: right;" id="ps-pf">₹0.00</td>
+            </tr>
+            <tr>
+              <td>Income Tax / TDS</td>
+              <td style="text-align: right;" id="ps-tax">₹0.00</td>
+            </tr>
+            <tr>
+              <td>Other Deductions</td>
+              <td style="text-align: right;" id="ps-other">₹0.00</td>
+            </tr>
+            <tr>
+              <td style="color: transparent;">-</td>
+              <td style="color: transparent;">-</td>
+            </tr>
+            <tr style="background: #f8fafc; border-top: 2px solid var(--border-color);">
+              <td><strong>Total Deductions</strong></td>
+              <td style="text-align: right;"><strong style="color: #b91c1c;" id="ps-total-deductions">₹0.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Net Pay Box -->
+    <div class="payslip-total-box">
+      <div>
+        <h3>Net Disbursed Take-Home Pay</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Total Earnings minus Total Deductions</p>
+      </div>
+      <div class="amount" id="ps-net-pay">₹0.00</div>
+    </div>
+
+    <!-- Signatures -->
+    <div class="payslip-signature">
+      <div class="sig-box">
+        Employee Signature
+      </div>
+      <div class="sig-box">
+        Authorized Payroll Administrator
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/payslip.js"></script>
+</body>
+</html>
